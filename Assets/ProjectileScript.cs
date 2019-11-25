@@ -18,6 +18,10 @@ public class ProjectileScript : MonoBehaviour
     {
         if (!manager.gameOver){
             transform.Translate(new Vector3(0, 10 * Time.deltaTime, 0));
+            if (transform.position.y > 1000)
+            {
+                Destroy(gameObject);
+            }
         }
        
 
