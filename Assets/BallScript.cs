@@ -16,9 +16,10 @@ public class BallScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       // Debug.Log(transform.GetComponent<Rigidbody2D>().velocity);
-        currentVelocity = transform.GetComponent<Rigidbody2D>().velocity;
-        Debug.Log(transform.localScale);
+        if (!GameObject.Find("Manager").GetComponent<NewGame>().gameOver)
+        {
+            currentVelocity = transform.GetComponent<Rigidbody2D>().velocity;
+        }
 
 
     }
@@ -34,6 +35,14 @@ public class BallScript : MonoBehaviour
         if (collision.gameObject.tag == "ball")
         {
             Physics2D.IgnoreCollision(collision.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        }
+
+        if (collision.gameObject.tag == "player")
+        {
+            GameObject.Find("Manager").GetComponent<NewGame>().gameOver = true;
+            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            gameObject.GetComponent<Rigidbody2D>().angularVelocity = 0;
+            gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
         }
     }
 }
