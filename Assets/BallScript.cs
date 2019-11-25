@@ -8,7 +8,9 @@ public class BallScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(500, 0));
+       // transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(250, 0));
+        
+       
     }
 
     // Update is called once per frame
@@ -16,6 +18,7 @@ public class BallScript : MonoBehaviour
     {
        // Debug.Log(transform.GetComponent<Rigidbody2D>().velocity);
         currentVelocity = transform.GetComponent<Rigidbody2D>().velocity;
+        Debug.Log(transform.localScale);
 
 
     }
@@ -25,8 +28,12 @@ public class BallScript : MonoBehaviour
         if (collision.gameObject.tag == "floor")
         {
             Vector2 tmp = new Vector2(currentVelocity.x, currentVelocity.y * -1);
-            Debug.Log(tmp.y+"");
+            //Debug.Log(tmp.y+"");
             
+        }
+        if (collision.gameObject.tag == "ball")
+        {
+            Physics2D.IgnoreCollision(collision.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         }
     }
 }
